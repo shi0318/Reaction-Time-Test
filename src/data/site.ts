@@ -1,7 +1,7 @@
 export const SITE = {
-  name: 'Reaction Time Game',
+  name: 'Reaction Time Test',
   url: 'https://reactiontimetest.fun',
-  description: 'A free five-round reaction time game that measures the interval between a visual signal and your click or tap.',
+  description: 'A free five-round browser reaction time test that measures the interval between a visual signal and your click or tap.',
   email: 'nmlkareem161@gmail.com',
 };
 
@@ -21,5 +21,5 @@ export const SOURCES = [
 export const NAVIGATION = [
   { href: '/', label: 'Play' },
   { href: '/how-it-works/', label: 'How it works' },
-  { href: '/average-reaction-time/', label: 'Score guide' },
+  { href: '/#faq', label: 'FAQ' },
 ];

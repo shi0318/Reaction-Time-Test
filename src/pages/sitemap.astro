@@ -2,7 +2,7 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 
 const links = [
-  ['Reaction Time Game', '/', 'Play the five-round visual reaction game.'],
+  ['Reaction Time Test', '/', 'Run the five-round visual reaction test.'],
   ['Reaction Time Test', '/reaction-time-test/', 'Run the focused five-round test.'],
   ['Average Reaction Time', '/average-reaction-time/', 'Read the score interpretation guide.'],
   ['How It Works', '/how-it-works/', 'Review the timer and session method.'],
@@ -12,8 +12,8 @@ const links = [
 ];
 ---
 
-<BaseLayout title="HTML Sitemap | Reaction Time Game" description="HTML sitemap for Reaction Time Game, including the interactive tool, score guide, method notes, and site information.">
-  <section class="article-hero"><div class="shell"><p class="eyebrow">Site navigation</p><h1>HTML Sitemap</h1><p class="lede">A plain list of the pages available on Reaction Time Game.</p></div></section>
+<BaseLayout title="HTML Sitemap | Reaction Time Test" description="HTML sitemap for Reaction Time Test, including the interactive tool, score guide, method notes, and site information.">
+  <section class="article-hero"><div class="shell"><p class="eyebrow">Site navigation</p><h1>HTML Sitemap</h1><p class="lede">A plain list of the pages available on Reaction Time Test.</p></div></section>
   <article class="article-page article-copy">
     <ul>
       {links.map(([label, href, description]) => <li><a href={href}>{label}</a> - {description}</li>)}

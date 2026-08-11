@@ -128,6 +128,21 @@ test('the supporting SEO pages and crawler files are generated', () => {
   assert.match(readFileSync(join(root, 'dist', 'robots.txt'), 'utf8'), /Sitemap: https:\/\/reactiontimetest\.fun\/sitemap-index\.xml/);
 });
 
+test('the focused reflex page is explanatory content and the public brand is unified', () => {
+  const reflexPage = readBuilt('reaction-time-test');
+  assert.match(reflexPage, /<title>Five-Round Reaction Reflex Test Explained<\/title>/);
+  assert.match(reflexPage, /<h1>Five-Round Reaction Reflex Test Explained<\/h1>/);
+  assert.match(reflexPage, /"@type":"Article"/);
+  assert.doesNotMatch(reflexPage, /class="reaction-panel"/);
+  assert.doesNotMatch(reflexPage, /Reaction Time Test: Five-Round Reflex Test/);
+
+  for (const route of ['/', 'zh', 'ko', 'hi', 'fr', 'reaction-time-test', 'how-it-works', 'average-reaction-time', 'about', 'contact', 'privacy-policy', 'sitemap']) {
+    const html = readBuilt(route);
+    assert.doesNotMatch(html, /Reaction Time Game/);
+    assert.match(html, /<meta name="application-name" content="Reaction Time Test">/);
+  }
+});
+
 test('homepage provides score-by-score feedback and full-page non-interactive cyan and green particles', () => {
   const html = readBuilt('/');
   const styles = readFileSync(join(root, 'src', 'styles', 'global.css'), 'utf8');

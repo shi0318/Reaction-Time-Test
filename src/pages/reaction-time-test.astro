@@ -1,20 +1,26 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
-import ReactionGame from '../components/ReactionGame.astro';
 import SourceList from '../components/SourceList.astro';
 ---
 
-<BaseLayout title="Reaction Time Test: Five-Round Reflex Test" description="Take a five-round online reaction time test. Each valid click is measured in milliseconds, then summarized with best, median, and average scores.">
-  <section class="article-hero"><div class="shell"><p class="eyebrow">Interactive test</p><h1>Reaction Time Test</h1><p class="lede">Run five valid reaction rounds and review the session with a best, median, and average result. Early clicks do not count.</p></div></section>
-  <div class="game-wrap"><ReactionGame /></div>
+<BaseLayout title="Five-Round Reaction Reflex Test Explained" description="Learn how a five-round reaction reflex test works, how early clicks are handled, and how to read browser-based results.">
+  <section class="article-hero"><div class="shell"><p class="eyebrow">Method guide</p><h1>Five-Round Reaction Reflex Test Explained</h1><p class="lede">Understand the timing, false-start rule, and score summary used by the Reaction Time Test browser tool.</p></div></section>
   <article class="article-page article-copy">
-    <h2>A five-round test, not a one-click claim</h2>
-    <p>This page uses the same original reaction game as the homepage, but the purpose is narrower: complete five clean responses, then inspect the session. One response alone can be unusual. The median helps describe the center of the five values, the average includes every score, and the best highlights the fastest valid response.</p>
-    <p>Start each round only when you are ready to pay attention. The panel waits for a random interval before it turns green. Clicking while it is still waiting creates a false start; it does not become a fast score and does not enter the results. Click once after green, then use the panel again to prepare the next response.</p>
-    <h2>Read the result in context</h2>
-    <p>The number shown is the time observed by your browser between its visual signal and its input event. It is useful for repeating the same exercise on the same setup. It does not separate a personal response from display timing, input timing, the operating system, or browser scheduling. Use it as a personal game result, not as a standardized or clinical measurement.</p>
-    <p>For a more consistent comparison, use the same browser, device, display, and input method. A touchscreen run and a desktop-mouse run are different setups. The score guide explains why the page does not attach unsupported labels such as “excellent” or publish a universal score table.</p>
-    <p class="article-callout">The site does not send scores to a server or maintain a public ranking. A copied result remains a choice made from your own browser.</p>
+    <h2>What the five-round reflex test measures</h2>
+    <p>A five-round reaction reflex test records the interval between a visible signal and a valid browser input. The result is a practical browser measurement, not a clinical assessment of a person. Display refresh, device processing, input hardware, operating-system scheduling, and browser timing can all contribute to the number you see.</p>
+    <h2>How each round works</h2>
+    <ol>
+      <li>Start a round when you are ready to focus on the test panel.</li>
+      <li>Wait through the randomized delay. The panel changes to green when the signal is presented.</li>
+      <li>Click, tap, press Enter, or press Space after the signal appears. The browser records the elapsed time in milliseconds.</li>
+    </ol>
+    <h2>Why early clicks are excluded</h2>
+    <p>A click during the waiting state is a false start, not a fast response. Excluding it prevents anticipation from being reported as reaction speed and gives every valid round the same signal-to-input sequence. Begin the round again and respond only after the panel turns green.</p>
+    <h2>How to read five results</h2>
+    <p>One unusually fast or slow response should not define a session. The homepage lists every valid round and summarizes the best, median, and average values. The median shows the middle of the ordered results, while the average uses all five values. Comparing those numbers can help you notice consistency without treating one score as a universal ranking.</p>
+    <h2>How to compare sessions fairly</h2>
+    <p>Use the same browser, device, display, and input method when repeating the test. A touchscreen and a desktop mouse follow different input paths, so their results should be compared cautiously. Repeat complete five-round sessions and look for a pattern instead of chasing a single millisecond value.</p>
+    <p class="article-callout">Scores are calculated in the active browser session. The site does not require an account, send reaction scores to a server, or maintain a public leaderboard.</p>
   </article>
   <SourceList />
 </BaseLayout>
