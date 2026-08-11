@@ -186,6 +186,25 @@ test('each localized homepage renders a visible nine-band score guide around the
   assert.match(styles, /@media\s*\(max-width:\s*960px\)[\s\S]*?\.score-guide-list\s*\{[\s\S]*?grid-template-columns:\s*repeat\(3,\s*minmax\(0,\s*1fr\)\)/);
 });
 
+test('primary navigation sends each localized homepage to its common questions', () => {
+  const expectedLabels = [
+    ['/', 'FAQ'],
+    ['zh', '常见问题'],
+    ['ko', '자주 묻는 질문'],
+    ['hi', 'सामान्य प्रश्न'],
+    ['fr', 'Questions fréquentes'],
+  ];
+
+  for (const [route, label] of expectedLabels) {
+    const html = readBuilt(route);
+
+    assert.match(html, /href="(?:\/|\/(?:zh|ko|hi|fr)\/)#faq"/);
+    assert.match(html, new RegExp(`>${label}<\\/a>`));
+    assert.match(html, /<section class="faq-section" id="faq" aria-labelledby="faq-heading">/);
+    assert.doesNotMatch(html, /href="(?:\/|\/(?:zh|ko|hi|fr)\/)#score-guide"/);
+  }
+});
+
 test('localized homepages leave source links to the supporting method articles', () => {
   for (const route of ['/', 'zh', 'ko', 'hi', 'fr']) {
     assert.doesNotMatch(readBuilt(route), /class="source-section"/);

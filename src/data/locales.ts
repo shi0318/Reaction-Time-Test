@@ -19,7 +19,7 @@ export interface HomeContent {
   faqEyebrow: string;
   faqHeading: string;
   faqs: Array<{ question: string; answer: string }>;
-  nav: { play: string; method: string; scores: string; language: string };
+  nav: { play: string; method: string; faq: string; language: string };
   footer: { note: string; play: string; learn: string; site: string; languages: string };
 }
 
@@ -61,7 +61,7 @@ export const HOME_CONTENT: Record<Locale, HomeContent> = {
       { question: 'Is this a reaction time test Human Benchmark alternative?', answer: 'People searching for a reaction time test Human Benchmark comparison are comparing browser tools. This independent site is not affiliated with Human Benchmark. It reports five valid browser-based results with best, median, and average session values.' },
       { question: 'Does this test store my results?', answer: 'No. Scores remain in page memory while the current tab is open unless you choose to copy the final text result.' },
     ],
-    nav: { play: 'Play', method: 'How it works', scores: 'Score guide', language: 'Language' },
+    nav: { play: 'Play', method: 'How it works', faq: 'FAQ', language: 'Language' },
     footer: { note: 'A free browser-based reflex tool. Results stay in the current browser session unless you choose to copy them.', play: 'Play', learn: 'Learn', site: 'Site', languages: 'Languages' },
   },
   zh: {
@@ -99,7 +99,7 @@ export const HOME_CONTENT: Record<Locale, HomeContent> = {
       { question: '如何提高反应时间？', answer: '网页测试不能保证提高反应能力。要得到更稳定的个人结果，请使用相同设置、减少干扰、不要预测信号，并比较多次完整测试。' },
       { question: '网站会保存我的成绩吗？', answer: '不会。成绩仅保留在当前打开的页面内，除非你主动复制最终的文本结果。' },
     ],
-    nav: { play: '开始测试', method: '测试说明', scores: '分数解读', language: '语言' },
+    nav: { play: '开始测试', method: '测试说明', faq: '常见问题', language: '语言' },
     footer: { note: '免费的浏览器反应工具。除非你主动复制，结果仅保留在当前浏览器会话。', play: '测试', learn: '了解', site: '网站', languages: '语言' },
   },
   ko: {
@@ -137,7 +137,7 @@ export const HOME_CONTENT: Record<Locale, HomeContent> = {
       { question: '반응 시간을 높이려면 어떻게 하나요?', answer: '브라우저 테스트는 향상을 보장할 수 없습니다. 같은 설정을 사용하고 방해를 줄이며 신호를 예측하지 말고 여러 번의 완전한 세션을 비교하세요.' },
       { question: '결과가 저장되나요?', answer: '아니요. 최종 텍스트를 직접 복사하지 않는 한 점수는 현재 탭의 메모리에만 남습니다.' },
     ],
-    nav: { play: '테스트', method: '작동 방식', scores: '점수 안내', language: '언어' },
+    nav: { play: '테스트', method: '작동 방식', faq: '자주 묻는 질문', language: '언어' },
     footer: { note: '무료 브라우저 반사 신경 도구입니다. 복사하지 않으면 결과는 현재 브라우저 세션에만 남습니다.', play: '테스트', learn: '알아보기', site: '사이트', languages: '언어' },
   },
   hi: {
@@ -175,7 +175,7 @@ export const HOME_CONTENT: Record<Locale, HomeContent> = {
       { question: 'प्रतिक्रिया समय कैसे बढ़ाएं?', answer: 'ब्राउज़र टेस्ट सुधार की गारंटी नहीं दे सकता। अधिक स्थिर व्यक्तिगत परिणाम के लिए समान सेटअप रखें, ध्यान भटकाने वाली चीजें हटाएं और कई पूरे सेशन की तुलना करें।' },
       { question: 'क्या परिणाम सहेजे जाते हैं?', answer: 'नहीं। जब तक आप अंतिम टेक्स्ट को कॉपी नहीं करते, स्कोर केवल खुले टैब की मेमोरी में रहता है।' },
     ],
-    nav: { play: 'टेस्ट', method: 'कैसे काम करता है', scores: 'स्कोर गाइड', language: 'भाषा' },
+    nav: { play: 'टेस्ट', method: 'कैसे काम करता है', faq: 'सामान्य प्रश्न', language: 'भाषा' },
     footer: { note: 'मुफ्त ब्राउज़र रिफ्लेक्स टूल। कॉपी करने तक परिणाम वर्तमान ब्राउज़र सेशन में रहते हैं।', play: 'टेस्ट', learn: 'जानें', site: 'साइट', languages: 'भाषाएं' },
   },
   fr: {
@@ -213,7 +213,7 @@ export const HOME_CONTENT: Record<Locale, HomeContent> = {
       { question: 'Comment améliorer son temps de réaction ?', answer: 'Un test de navigateur ne peut pas garantir une amélioration. Pour un résultat personnel plus régulier, gardez la même configuration, réduisez les distractions et comparez plusieurs séances complètes.' },
       { question: 'Les résultats sont-ils enregistrés ?', answer: 'Non. Les scores restent dans la mémoire de l’onglet ouvert, sauf si vous choisissez de copier le résultat final.' },
     ],
-    nav: { play: 'Tester', method: 'Fonctionnement', scores: 'Guide des scores', language: 'Langue' },
+    nav: { play: 'Tester', method: 'Fonctionnement', faq: 'Questions fréquentes', language: 'Langue' },
     footer: { note: 'Outil de réflexes gratuit dans le navigateur. Les résultats restent dans la session en cours sauf si vous les copiez.', play: 'Tester', learn: 'Comprendre', site: 'Site', languages: 'Langues' },
   },
 };
