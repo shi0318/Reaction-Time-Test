@@ -1,6 +1,7 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import FaqList from './FaqList.astro';
+import HeroSignalField from './HeroSignalField.astro';
 import ReactionGame from './ReactionGame.astro';
 import { getHomeContent, type Locale } from '../data/locales';
 
@@ -15,6 +16,7 @@ const content = getHomeContent(locale);
 
 <BaseLayout title={content.title} description={content.description} canonicalPath={canonicalPath ?? content.path} faqs={content.faqs} pageType="home" locale={locale}>
   <section class="home-intro">
+    <HeroSignalField />
     <div class="shell">
       <p class="eyebrow">{content.eyebrow}</p>
       <h1>{content.h1}</h1>
@@ -45,18 +47,11 @@ const content = getHomeContent(locale);
 
   {locale === 'en' && (
     <section class="content-band">
-      <div class="shell content-copy">
-        <p class="eyebrow">Read the result in context</p>
-        <h2>What a browser reaction score can and cannot tell you</h2>
-        <p>A reaction time test starts with one visible event and one immediate action, but the number on screen is still a browser measurement. It includes the time between the signal and your input reaching the page, plus parts of the display and input path that differ between devices. That is why a score can change when you use another screen, browser, mouse, touch screen, keyboard, or operating-system setup.</p>
-        <p>The five result cards give you a transparent record of the session instead of hiding every attempt behind one final number. Compare the range of your own valid rounds, then use the best, median, and average together. The median can be helpful when one round was unusually quick or slow, while the average shows the overall value for the same five responses. None of these measurements diagnose a health condition or prove how a person will perform in another task.</p>
-        <p>For a useful personal baseline, repeat the full test at different times while keeping the device and input method consistent. If the result varies, first check practical conditions: notifications, background work, a touch screen versus a mouse, an external display, and whether you were watching for the colour change. The goal is a clear comparison of repeatable browser sessions, not a universal label.</p>
-      </div>
-      <div class="shell link-list">
+      <nav class="shell link-list link-list--standalone" aria-label="Related reaction time guides">
         <a href="/reaction-time-test/"><strong>Five-round reaction test</strong><span>Review the round flow and false-start rule.</span></a>
         <a href="/average-reaction-time/"><strong>Understanding reaction scores</strong><span>Learn why browser results are not a universal average.</span></a>
         <a href="/how-it-works/"><strong>How the timing works</strong><span>See what the browser timer records and why latency matters.</span></a>
-      </div>
+      </nav>
     </section>
   )}
 

@@ -104,14 +104,18 @@ main, .site-footer {
 .language-menu a[aria-current="page"] { color: var(--green); background: var(--slate); }
 
 .home-intro, .article-hero { border-bottom: 1px solid var(--line); background: rgb(17 24 39 / 82%); }
+.home-intro { position: relative; isolation: isolate; overflow: hidden; }
+.home-intro > .shell { position: relative; z-index: 1; }
+.hero-signal-field { position: absolute; z-index: 0; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: right center; opacity: .76; pointer-events: none; }
 .home-intro .shell, .article-hero .shell { padding-block: 3.5rem 3rem; }
 .home-intro h1, .article-hero h1 { max-width: 15ch; margin: .5rem 0 0; font-size: clamp(2.35rem, 5vw, 4.4rem); line-height: 1.05; letter-spacing: 0; }
+html[lang="en"] .home-intro h1 { max-width: 19ch; }
 .article-hero h1 { max-width: 18ch; font-size: clamp(2rem, 4vw, 3.4rem); }
 .lede { max-width: 43rem; margin: 1.15rem 0 0; color: var(--muted); font-size: 1.1rem; }
 .eyebrow { margin: 0; color: var(--green); font-size: .78rem; font-weight: 800; letter-spacing: .08em; text-transform: uppercase; }
 
 .game-wrap { padding-block: 2rem 4rem; background: rgb(17 24 39 / 78%); }
-.game-section { position: relative; isolation: isolate; width: var(--shell); margin-inline: auto; overflow: hidden; border: 1px solid #21384a; border-radius: 8px; background: rgb(13 24 34 / 84%); padding: 1.15rem; }
+.game-section { position: relative; isolation: isolate; width: var(--shell); margin-inline: auto; overflow: hidden; border: 1px solid rgb(80 227 194 / 36%); border-radius: 8px; background: rgb(13 24 34 / 84%); box-shadow: 0 0 0 1px rgb(80 227 194 / 14%), 0 0 24px rgb(80 227 194 / 10%); padding: 1.15rem; }
 .game-heading-row { position: relative; z-index: 1; display: flex; align-items: end; justify-content: space-between; gap: 1rem; margin-bottom: 1rem; }
 .game-heading-row h2 { margin: .35rem 0 0; font-size: clamp(1.4rem, 3vw, 2rem); line-height: 1.15; }
 .game-controls { display: flex; align-items: end; gap: .85rem; }
@@ -138,9 +142,10 @@ main, .site-footer {
   align-items: center;
   justify-content: center;
   gap: .85rem;
-  border: 2px solid var(--line);
+  border: 2px solid rgb(80 227 194 / 36%);
   border-radius: 8px;
   background: var(--navy-soft);
+  box-shadow: 0 0 0 1px rgb(80 227 194 / 14%), 0 0 24px rgb(80 227 194 / 10%);
   color: var(--text);
   padding: 2rem;
   transition: background-color .16s ease, border-color .16s ease, color .16s ease;
@@ -152,9 +157,10 @@ main, .site-footer {
   display: flex;
   min-width: 0;
   flex-direction: column;
-  border: 1px solid var(--line);
+  border: 1px solid rgb(80 227 194 / 36%);
   border-radius: 8px;
   background: rgb(17 24 39 / 94%);
+  box-shadow: 0 0 0 1px rgb(80 227 194 / 14%), 0 0 24px rgb(80 227 194 / 10%);
   padding: 1rem;
 }
 
@@ -253,6 +259,7 @@ main, .site-footer {
 .info-grid > article { border-top: 2px solid var(--green); padding-top: .9rem; }
 .info-grid p { margin: .55rem 0 0; color: var(--muted); }
 .link-list { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1rem; margin-top: 2rem; }
+.link-list--standalone { margin-top: 0; }
 .link-list a { display: block; min-height: 100%; border: 1px solid var(--line); border-radius: 6px; background: #111827; padding: 1.1rem; transition: border-color .16s ease, background-color .16s ease; }
 .link-list a:hover { border-color: var(--green); background: #152139; }
 .link-list strong, .link-list span { display: block; }
@@ -300,6 +307,7 @@ main, .site-footer {
 @media (max-width: 760px) {
   .nav-shell { min-height: 5.8rem; align-items: flex-start; flex-direction: column; justify-content: center; padding-block: .7rem; }
   .nav-list { justify-content: flex-start; }
+  .hero-signal-field { opacity: .42; object-position: 76% center; }
   .home-intro .shell, .article-hero .shell { padding-block: 2.5rem; }
   .game-heading-row, .game-controls { align-items: flex-start; flex-direction: column; }
   .reaction-panel { min-height: 20rem; }

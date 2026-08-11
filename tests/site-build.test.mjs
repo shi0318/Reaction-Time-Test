@@ -38,7 +38,47 @@ test('homepage is fully rendered with reaction time test and its supported searc
   assert.match(bodyText, /Is this a reaction speed test\?/i);
   assert.match(html, /<h2>How to increase reaction time<\/h2>/);
   assert.match(bodyText, /A browser test cannot prove a permanent physiological improvement/i);
-  assert.ok(bodyText.split(' ').length >= 900, 'Homepage needs substantive server-rendered text.');
+  assert.doesNotMatch(html, /What a browser reaction score can and cannot tell you/);
+  assert.match(html, /<nav class="shell link-list link-list--standalone" aria-label="Related reaction time guides">/);
+  assert.match(html, /href="\/reaction-time-test\/"[^>]*><strong>Five-round reaction test<\/strong>/);
+  assert.match(html, /href="\/average-reaction-time\/"[^>]*><strong>Understanding reaction scores<\/strong>/);
+  assert.match(html, /href="\/how-it-works\/"[^>]*><strong>How the timing works<\/strong>/);
+  assert.ok(bodyText.split(' ').length >= 700, 'Homepage needs substantive server-rendered text without redundant copy.');
+});
+
+test('every localized homepage uses the decorative local signal field without blocking the tool', () => {
+  const styles = readFileSync(join(root, 'src', 'styles', 'global.css'), 'utf8');
+
+  for (const route of ['/', 'zh', 'ko', 'hi', 'fr']) {
+    assert.match(
+      readBuilt(route),
+      /<img class="hero-signal-field" src="\/images\/reaction-signal-lines\.png" alt="" aria-hidden="true" width="2560" height="960" loading="eager" decoding="async">/,
+    );
+  }
+
+  assert.ok(existsSync(join(root, 'dist', 'images', 'reaction-signal-lines.png')), 'Expected the local hero background in the static output.');
+  assert.match(styles, /\.home-intro\s*\{[\s\S]*?isolation:\s*isolate/);
+  assert.match(styles, /\.hero-signal-field\s*\{[\s\S]*?pointer-events:\s*none/);
+  assert.match(styles, /\.home-intro\s*>\s*\.shell\s*\{[\s\S]*?z-index:\s*1/);
+});
+
+test('the game surface uses restrained green edge glows for its three primary panels', () => {
+  const styles = readFileSync(join(root, 'src', 'styles', 'global.css'), 'utf8');
+
+  for (const selector of ['.game-section', '.reaction-panel', '.score-guide']) {
+    assert.match(
+      styles,
+      new RegExp(`${selector.replace('.', '\\.') }\\s*\\{[\\s\\S]*?box-shadow:\\s*0 0 0 1px rgb\\(80 227 194 / 14%\\), 0 0 24px rgb\\(80 227 194 / 10%\\)`),
+      `Expected a restrained green edge glow on ${selector}.`,
+    );
+  }
+});
+
+test('the English homepage keeps its hero title within three readable desktop lines', () => {
+  const styles = readFileSync(join(root, 'src', 'styles', 'global.css'), 'utf8');
+
+  assert.match(styles, /html\[lang="en"\]\s+\.home-intro h1\s*\{\s*max-width:\s*19ch;/);
+  assert.doesNotMatch(styles, /\.home-intro h1,\s*\.article-hero h1\s*\{\s*max-width:\s*19ch;/);
 });
 
 test('the supporting SEO pages and crawler files are generated', () => {
