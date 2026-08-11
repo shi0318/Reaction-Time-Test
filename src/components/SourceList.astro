@@ -1,0 +1,23 @@
+---
+import { SOURCES } from '../data/site';
+
+interface Props {
+  eyebrow?: string;
+  heading?: string;
+}
+
+const { eyebrow = 'Method notes', heading = 'Sources and further reading' } = Astro.props;
+---
+
+<section class="source-section" aria-labelledby="sources-heading">
+  <p class="eyebrow">{eyebrow}</p>
+  <h2 id="sources-heading">{heading}</h2>
+  <ul>
+    {SOURCES.map((source) => (
+      <li>
+        <a href={source.url} target="_blank" rel="nofollow noopener noreferrer">{source.label}</a>
+        <span>{source.note}</span>
+      </li>
+    ))}
+  </ul>
+</section>

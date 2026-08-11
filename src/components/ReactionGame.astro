@@ -1,0 +1,307 @@
+---
+import type { Locale } from '../data/locales';
+import { SCORE_BANDS, getToolLabels } from '../scripts/reaction-game.js';
+
+interface Props {
+  locale?: Locale;
+}
+
+const { locale = 'en' } = Astro.props;
+const labels = getToolLabels(locale);
+---
+
+<section class="game-section" id="play" aria-labelledby="game-heading" data-locale={locale}>
+  <div class="game-heading-row">
+    <div>
+      <p class="eyebrow">{labels.eyebrow}</p>
+      <h2 id="game-heading">{labels.heading}</h2>
+    </div>
+    <div class="game-controls">
+      <div class="mode-switch" role="group" aria-label={labels.heading}>
+        <button class="mode-button is-active" id="standard-mode" type="button" aria-pressed="true">{labels.standard}</button>
+        <button class="mode-button" id="practice-mode" type="button" aria-pressed="false">{labels.practice}</button>
+      </div>
+      <p class="round-count" id="round-count">{labels.standardCount(0)}</p>
+    </div>
+  </div>
+
+  <div class="game-play-grid">
+    <button class="reaction-panel" id="reaction-game" type="button" data-state="idle" aria-describedby="game-status">
+      <span class="signal-dot" aria-hidden="true"></span>
+      <span class="game-prompt" id="game-prompt">{labels.initialPrompt}</span>
+      <span class="game-help" id="game-help">{labels.initialHelp}</span>
+    </button>
+
+    <aside class="score-guide" aria-labelledby="score-guide-heading">
+      <div>
+        <p class="eyebrow">{labels.interpretation}</p>
+        <h3 id="score-guide-heading">{labels.scoreGuideHeading}</h3>
+      </div>
+      <ol class="score-guide-list">
+        {SCORE_BANDS.map(({ key, range }) => (
+          <li data-score-band={key}>
+            <span>{range}</span>
+            <strong>{labels.bands[key]}</strong>
+          </li>
+        ))}
+      </ol>
+      <p class="score-guide-note">{labels.scoreGuideNote}</p>
+    </aside>
+  </div>
+
+  <p class="game-status" id="game-status" role="status" aria-live="polite">{labels.sessionNote}</p>
+  <p class="practice-readout" id="practice-readout" hidden aria-live="polite"></p>
+
+  <section class="round-results" id="round-results" hidden aria-live="polite" aria-labelledby="round-results-heading">
+    <div class="result-copy">
+      <p class="eyebrow">{labels.roundResultsEyebrow}</p>
+      <h3 id="round-results-heading">{labels.roundResultsHeading}</h3>
+    </div>
+    <ol class="round-score-list" id="round-list">
+      {Array.from({ length: 5 }, (_, index) => (
+        <li data-round={index + 1}>
+          <span class="round-label">{labels.round} {index + 1}</span>
+          <strong data-round-score>-</strong>
+          <span data-round-note>{labels.awaiting}</span>
+        </li>
+      ))}
+    </ol>
+    <p class="score-interpretation" id="score-interpretation"></p>
+    <p class="score-disclaimer">{labels.disclaimer}</p>
+  </section>
+
+  <section class="result-summary" id="result-summary" hidden aria-live="polite" aria-label={labels.summaryHeading}>
+    <div class="result-copy">
+      <p class="eyebrow">{labels.summaryEyebrow}</p>
+      <h3>{labels.summaryHeading}</h3>
+      <p id="score-list"></p>
+    </div>
+    <dl class="metric-grid">
+      <div><dt>{labels.best}</dt><dd id="best-score">-</dd></div>
+      <div><dt>{labels.median}</dt><dd id="median-score">-</dd></div>
+      <div><dt>{labels.average}</dt><dd id="average-score">-</dd></div>
+    </dl>
+    <div class="result-actions">
+      <button class="action-button" id="copy-result" type="button">{labels.copy}</button>
+      <button class="text-button" id="restart-game" type="button">{labels.restart}</button>
+    </div>
+  </section>
+</section>
+
+<script>
+  import { classifyScore, createRun, getToolLabels, getWaitDelay, recordResult, startRound, summarizeScores } from '../scripts/reaction-game.js';
+
+  const gameSection = document.querySelector('.game-section');
+  const panel = document.querySelector('#reaction-game');
+  const prompt = document.querySelector('#game-prompt');
+  const help = document.querySelector('#game-help');
+  const status = document.querySelector('#game-status');
+  const roundCount = document.querySelector('#round-count');
+  const summary = document.querySelector('#result-summary');
+  const scoreList = document.querySelector('#score-list');
+  const bestScore = document.querySelector('#best-score');
+  const medianScore = document.querySelector('#median-score');
+  const averageScore = document.querySelector('#average-score');
+  const copyButton = document.querySelector('#copy-result');
+  const restartButton = document.querySelector('#restart-game');
+  const standardMode = document.querySelector('#standard-mode');
+  const practiceMode = document.querySelector('#practice-mode');
+  const practiceReadout = document.querySelector('#practice-readout');
+  const roundResults = document.querySelector('#round-results');
+  const roundSlots = document.querySelectorAll<HTMLLIElement>('#round-list li');
+  const scoreInterpretation = document.querySelector('#score-interpretation');
+
+  if (
+    gameSection instanceof HTMLElement &&
+    panel instanceof HTMLButtonElement &&
+    prompt instanceof HTMLElement &&
+    help instanceof HTMLElement &&
+    status instanceof HTMLElement &&
+    roundCount instanceof HTMLElement &&
+    summary instanceof HTMLElement &&
+    scoreList instanceof HTMLElement &&
+    bestScore instanceof HTMLElement &&
+    medianScore instanceof HTMLElement &&
+    averageScore instanceof HTMLElement &&
+    copyButton instanceof HTMLButtonElement &&
+    restartButton instanceof HTMLButtonElement &&
+    standardMode instanceof HTMLButtonElement &&
+    practiceMode instanceof HTMLButtonElement &&
+    practiceReadout instanceof HTMLElement &&
+    roundResults instanceof HTMLElement &&
+    scoreInterpretation instanceof HTMLElement
+  ) {
+    const labels = getToolLabels(gameSection.dataset.locale);
+    let run = createRun();
+    let mode: 'standard' | 'practice' = 'standard';
+    let state = 'idle';
+    let signalStartedAt: number | null = null;
+    let waitTimer = 0;
+    let signalFrame = 0;
+
+    const updateRound = () => {
+      roundCount.textContent = mode === 'standard'
+        ? labels.standardCount(run.scores.length)
+        : labels.practiceCount(run.scores.length);
+    };
+
+    const updateModeControls = () => {
+      const isStandard = mode === 'standard';
+      standardMode.classList.toggle('is-active', isStandard);
+      practiceMode.classList.toggle('is-active', !isStandard);
+      standardMode.setAttribute('aria-pressed', String(isStandard));
+      practiceMode.setAttribute('aria-pressed', String(!isStandard));
+    };
+
+    const updatePanel = (nextState: string, nextPrompt: string, nextHelp: string) => {
+      state = nextState;
+      panel.dataset.state = nextState;
+      prompt.textContent = nextPrompt;
+      help.textContent = nextHelp;
+    };
+
+    const resetRoundResults = () => {
+      roundResults.hidden = true;
+      scoreInterpretation.textContent = '';
+      roundSlots.forEach((slot) => {
+        slot.dataset.state = 'waiting';
+        const score = slot.querySelector('[data-round-score]');
+        const note = slot.querySelector('[data-round-note]');
+        if (score) score.textContent = '-';
+        if (note) note.textContent = labels.awaiting;
+      });
+    };
+
+    const showRoundResult = (score: number) => {
+      if (mode !== 'standard') return;
+      const slot = roundSlots[run.scores.length - 1];
+      const interpretation = classifyScore(score);
+      if (!slot || !interpretation) return;
+
+      const scoreElement = slot.querySelector('[data-round-score]');
+      const noteElement = slot.querySelector('[data-round-note]');
+      slot.dataset.state = 'recorded';
+      if (scoreElement) scoreElement.textContent = `${score} ms`;
+      if (noteElement) noteElement.textContent = labels.bands[interpretation.key];
+      scoreInterpretation.textContent = `${labels.interpretation}: ${interpretation.range} - ${labels.bands[interpretation.key]}.`;
+      roundResults.hidden = false;
+    };
+
+    const beginRound = () => {
+      window.clearTimeout(waitTimer);
+      window.cancelAnimationFrame(signalFrame);
+      signalStartedAt = null;
+      run = startRound(run);
+      summary.hidden = true;
+      updatePanel('waiting', labels.waitingPrompt, labels.waitingHelp);
+      status.textContent = mode === 'standard'
+        ? labels.armed(run.scores.length + 1)
+        : labels.practiceArmed(run.scores.length + 1);
+      const delay = getWaitDelay();
+      waitTimer = window.setTimeout(() => {
+        updatePanel('ready', labels.readyPrompt, labels.readyHelp);
+        status.textContent = labels.readyStatus;
+        signalFrame = window.requestAnimationFrame(() => {
+          signalStartedAt = performance.now();
+          signalFrame = 0;
+        });
+      }, delay);
+    };
+
+    const showSummary = () => {
+      const scores = summarizeScores(run.scores);
+      if (!scores) return;
+      bestScore.textContent = `${scores.best} ms`;
+      medianScore.textContent = `${scores.median} ms`;
+      averageScore.textContent = `${scores.average} ms`;
+      scoreList.textContent = `${labels.round}: ${run.scores.map((score, index) => `${index + 1}: ${score} ms`).join(', ')}.`;
+      summary.hidden = false;
+      updatePanel('complete', labels.completePrompt, labels.completeHelp);
+      status.textContent = labels.completeStatus(scores.median);
+    };
+
+    const recordClick = () => {
+      if (signalStartedAt === null) return;
+      const elapsed = performance.now() - signalStartedAt;
+      run = recordResult(run, elapsed);
+      updateRound();
+      const score = run.scores.at(-1);
+      if (score === undefined) return;
+      if (mode === 'practice') {
+        const scores = summarizeScores(run.scores);
+        if (!scores) return;
+        practiceReadout.hidden = false;
+        practiceReadout.textContent = labels.latest(score, scores.best);
+        const interpretation = classifyScore(score);
+        if (interpretation) {
+          scoreInterpretation.textContent = `${labels.interpretation}: ${interpretation.range} - ${labels.bands[interpretation.key]}.`;
+        }
+        updatePanel('result', `${score} ms`, labels.practiceResultHelp);
+        status.textContent = labels.practiceRecorded(run.scores.length, score);
+        return;
+      }
+      showRoundResult(score);
+      if (run.scores.length === 5) {
+        showSummary();
+        return;
+      }
+      updatePanel('result', `${score} ms`, labels.resultHelp);
+      status.textContent = labels.recorded(run.scores.length, score);
+    };
+
+    panel.addEventListener('click', () => {
+      if (state === 'waiting') {
+        window.clearTimeout(waitTimer);
+        updatePanel('early', labels.earlyPrompt, labels.earlyHelp);
+        status.textContent = labels.earlyStatus;
+        return;
+      }
+      if (state === 'ready') {
+        if (signalStartedAt !== null) {
+          recordClick();
+        }
+        return;
+      }
+      if (state === 'complete') return;
+      beginRound();
+    });
+
+    panel.addEventListener('keydown', (event) => {
+      if (event.key !== 'Enter' && event.key !== ' ') return;
+      event.preventDefault();
+      panel.click();
+    });
+
+    const setMode = (nextMode: 'standard' | 'practice') => {
+      window.clearTimeout(waitTimer);
+      window.cancelAnimationFrame(signalFrame);
+      signalStartedAt = null;
+      mode = nextMode;
+      run = createRun();
+      updateRound();
+      updateModeControls();
+      summary.hidden = true;
+      practiceReadout.hidden = true;
+      resetRoundResults();
+      updatePanel('idle', labels.initialPrompt, nextMode === 'standard' ? labels.initialHelp : labels.practiceResultHelp);
+      status.textContent = nextMode === 'standard' ? labels.standardReady : labels.practiceReady;
+      panel.focus();
+    };
+
+    standardMode.addEventListener('click', () => setMode('standard'));
+    practiceMode.addEventListener('click', () => setMode('practice'));
+    restartButton.addEventListener('click', () => setMode('standard'));
+
+    copyButton.addEventListener('click', async () => {
+      const scores = summarizeScores(run.scores);
+      if (!scores) return;
+      const text = `${labels.summaryHeading}: ${labels.best} ${scores.best} ms, ${labels.median} ${scores.median} ms, ${labels.average} ${scores.average} ms. ${labels.round}: ${run.scores.join(', ')} ms.`;
+      try {
+        await navigator.clipboard.writeText(text);
+        status.textContent = labels.copied;
+      } catch {
+        status.textContent = labels.copyUnavailable;
+      }
+    });
+  }
+</script>

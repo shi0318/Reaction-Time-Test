@@ -1,0 +1,14 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { SITE } from '../data/site';
+---
+
+<BaseLayout title="Contact Reaction Time Game" description="Contact Reaction Time Game for corrections, accessibility feedback, or site questions.">
+  <section class="article-hero"><div class="shell"><p class="eyebrow">Contact</p><h1>Contact</h1><p class="lede">Send corrections, accessibility feedback, or questions about the site.</p></div></section>
+  <article class="article-page article-copy">
+    <h2>Email</h2>
+    <p>Contact the site at <a href={`mailto:${SITE.email}`}>{SITE.email}</a>.</p>
+    <h2>Helpful details</h2>
+    <p>For a technical issue, include the page URL, browser, device type, and a short description of what happened. For a content correction, include the relevant statement and a source that supports the correction. Messages are read as site feedback; do not send sensitive personal information or account credentials.</p>
+  </article>
+</BaseLayout>

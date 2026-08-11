@@ -1,0 +1,18 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { SITE } from '../data/site';
+---
+
+<BaseLayout title="Privacy Policy | Reaction Time Game" description="Privacy policy for Reaction Time Game. The browser tool does not require an account or send reaction scores to a server.">
+  <section class="article-hero"><div class="shell"><p class="eyebrow">Site policy</p><h1>Privacy Policy</h1><p class="lede">How the reaction test handles session scores and basic website interactions.</p></div></section>
+  <article class="article-page article-copy">
+    <h2>Reaction scores</h2>
+    <p>The game calculates scores in the active browser page. It does not require an account, submit reaction scores to a server, or provide a public leaderboard. Refreshing or closing the page clears the active score list. The Copy result button requests use of your browser clipboard only after you activate it.</p>
+    <h2>Messages</h2>
+    <p>If you email the contact address, your message and the information you choose to include are received through the email service. Use the message only for site feedback and avoid sending sensitive information.</p>
+    <h2>Third-party links</h2>
+    <p>The site links to external sources for further reading. Those sites have their own privacy practices. Opening an external link takes you outside this site.</p>
+    <h2>Contact</h2>
+    <p>Questions about this policy can be sent to <a href={`mailto:${SITE.email}`}>{SITE.email}</a>.</p>
+  </article>
+</BaseLayout>

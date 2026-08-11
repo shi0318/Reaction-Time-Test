@@ -1,0 +1,20 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import SourceList from '../components/SourceList.astro';
+---
+
+<BaseLayout title="How the Reaction Time Game Works" description="Learn how this browser reaction time game measures five visual-response rounds, handles early clicks, calculates a median, and keeps scores in the current session only.">
+  <section class="article-hero"><div class="shell"><p class="eyebrow">Method</p><h1>How the Reaction Time Game Works</h1><p class="lede">A transparent view of the signal, timer, five-round summary, false-start rule, and local session behavior.</p></div></section>
+  <article class="article-page article-copy">
+    <h2>Signal and response</h2>
+    <p>When you start a round, the game waits for a random delay. During that period, the panel is in a waiting state. When the panel changes to green, the page records a high-resolution browser timestamp and asks you to respond. The next click, tap, Enter, or Space action ends that round. The elapsed time is rounded to a whole millisecond for the on-page result.</p>
+    <p>The random delay is there to discourage anticipation. A click before the green signal is visible is treated as a false start. It is not displayed as a fast reaction and it does not add a value to the five recorded rounds. You can then retry without losing a valid score.</p>
+    <h2>Session calculation</h2>
+    <p>After a valid response, the game keeps that score in memory on the page. Once five valid responses exist, it sorts a copy of the list to find the best and median values, and calculates the average from all five. It never substitutes a site-wide benchmark or creates a result from unplayed rounds.</p>
+    <p>The result is local to the open page. Refreshing or leaving the page resets it. There is no sign-in, public profile, score API, or server-side database for this tool. The optional copy button uses the browser clipboard only after you press it.</p>
+    <h2>Why the number is not only about a person</h2>
+    <p>Browser timing is useful but not perfectly isolated. Modern web browsers expose high-precision timing tools for performance measurement, while the visible result can still be influenced by display refresh, rendering, input hardware, the operating system, and mobile versus desktop interaction. A public reaction-test statistics page from Human Benchmark similarly discusses display and input latency. That is why this site describes the number as a browser-test result under a particular setup.</p>
+    <p class="article-callout">The design goal is clear personal feedback: a simple signal, a visible false-start rule, five recorded rounds, and no invented comparison table.</p>
+  </article>
+  <SourceList />
+</BaseLayout>

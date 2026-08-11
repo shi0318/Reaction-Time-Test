@@ -1,0 +1,31 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import SourceList from '../components/SourceList.astro';
+---
+
+<BaseLayout title="Average Reaction Time: What a Browser Test Can Show" description="Understand average reaction time results without misleading universal rankings. Learn what best, median, average, latency, device setup, and repeatable testing mean.">
+  <section class="article-hero"><div class="shell"><p class="eyebrow">Score guide</p><h1>Average Reaction Time: Read the Number Carefully</h1><p class="lede">A browser reaction score is a session measurement, not a universal label for a person.</p></div></section>
+  <article class="article-page article-copy">
+    <h2>There is no one browser average that fits every test</h2>
+    <p>People often search for an average reaction time after taking a quick test. The useful first question is “average of what?” A response task can ask for one action after one visible signal, require a choice between several signals, ask the user to move a pointer to a target, or require repeated tapping. Those are different tasks, so their recorded times should not be mixed as though they measure the same event.</p>
+    <p>Even within a simple visual click test, the reported number is influenced by the device path. The screen must display a change, the user notices it, an input device reports an action, and the browser processes that event. Public browser-test references describe display and input latency as part of that context. This site therefore does not present a universal “normal” score or classify a visitor from one session.</p>
+    <h2>What the five-round summary means</h2>
+    <h3>Best</h3>
+    <p>Your best score is the smallest valid result in the five rounds. It can be satisfying to see, but it is only one observation. Use it to record a personal high point, not as the whole story.</p>
+    <h3>Median</h3>
+    <p>The median is the middle number after the five scores are sorted from low to high. With five values, it is one of the actual rounds. It is often a helpful center point because one unusually slow or unusually quick click does not move it as much as it moves an average.</p>
+    <h3>Average</h3>
+    <p>The average adds the five valid results and divides by five. It shows the overall session, including every round. Compare it with the median to notice whether a single outlier changed the feel of the run.</p>
+    <h2>Make comparisons that mean something</h2>
+    <ol>
+      <li>Use the same input method each time: mouse, touch, or keyboard.</li>
+      <li>Keep the same device and browser when tracking a personal series.</li>
+      <li>Complete the full five rounds instead of comparing only one click.</li>
+      <li>Repeat a session at a different time rather than treating a single run as a final judgment.</li>
+      <li>Note interruptions, fatigue, and changes to your setup before inferring a trend.</li>
+    </ol>
+    <p>These habits do not turn a web game into a laboratory instrument. They simply make personal comparisons less noisy. Do not use an online reaction test to diagnose a health condition or decide whether you are safe to drive, work, or compete.</p>
+    <p class="article-callout">Want to generate your own five-round session? <a href="/">Play the reaction time game on the homepage.</a></p>
+  </article>
+  <SourceList />
+</BaseLayout>

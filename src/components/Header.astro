@@ -1,0 +1,36 @@
+---
+import { LANGUAGE_ENTRIES, getHomeContent, type Locale } from '../data/locales';
+
+interface Props {
+  locale?: Locale;
+}
+
+const { locale = 'en' } = Astro.props;
+const content = getHomeContent(locale);
+---
+
+<header class="site-header">
+  <div class="shell nav-shell">
+    <a class="brand" href={content.path} aria-label={`${content.h1} home`}>
+      <img src="/logo.svg" width="36" height="36" alt="" />
+      <span>Reaction Time Test</span>
+    </a>
+    <nav aria-label="Primary navigation">
+      <ul class="nav-list">
+        <li><a href={`${content.path}#play`}>{content.nav.play}</a></li>
+        <li><a href={`${content.path}#how-it-works`}>{content.nav.method}</a></li>
+        <li><a href={`${content.path}#score-guide`}>{content.nav.scores}</a></li>
+        <li class="language-nav-item">
+          <details class="language-menu">
+            <summary>{content.nav.language}: {content.shortName}</summary>
+            <ul aria-label={content.nav.language}>
+              {LANGUAGE_ENTRIES.map((entry) => (
+                <li><a href={entry.path} hreflang={entry.htmlLang} lang={entry.htmlLang} aria-current={entry.locale === locale ? 'page' : undefined}>{entry.languageName}</a></li>
+              ))}
+            </ul>
+          </details>
+        </li>
+      </ul>
+    </nav>
+  </div>
+</header>

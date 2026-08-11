@@ -1,0 +1,64 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import FaqList from './FaqList.astro';
+import ReactionGame from './ReactionGame.astro';
+import { getHomeContent, type Locale } from '../data/locales';
+
+interface Props {
+  locale: Locale;
+  canonicalPath?: string;
+}
+
+const { locale, canonicalPath } = Astro.props;
+const content = getHomeContent(locale);
+---
+
+<BaseLayout title={content.title} description={content.description} canonicalPath={canonicalPath ?? content.path} faqs={content.faqs} pageType="home" locale={locale}>
+  <section class="home-intro">
+    <div class="shell">
+      <p class="eyebrow">{content.eyebrow}</p>
+      <h1>{content.h1}</h1>
+      <p class="lede">{content.lede}</p>
+    </div>
+  </section>
+
+  <div class="game-wrap"><ReactionGame locale={locale} /></div>
+
+  <section class="content-band" id="how-it-works">
+    <div class="shell content-copy">
+      <p class="eyebrow">{content.overview.eyebrow}</p>
+      <h2>{content.overview.heading}</h2>
+      {content.overview.paragraphs.map((paragraph) => <p>{paragraph}</p>)}
+    </div>
+    <div class="shell info-grid">
+      {content.steps.map((step) => <article><h3>{step.title}</h3><p>{step.text}</p></article>)}
+    </div>
+  </section>
+
+  <section class="content-band" id="score-guide">
+    <div class="shell content-copy">
+      <p class="eyebrow">{content.guide.eyebrow}</p>
+      <h2>{content.guide.heading}</h2>
+      {content.guide.paragraphs.map((paragraph) => <p>{paragraph}</p>)}
+    </div>
+  </section>
+
+  {locale === 'en' && (
+    <section class="content-band">
+      <div class="shell content-copy">
+        <p class="eyebrow">Read the result in context</p>
+        <h2>What a browser reaction score can and cannot tell you</h2>
+        <p>A reaction time test starts with one visible event and one immediate action, but the number on screen is still a browser measurement. It includes the time between the signal and your input reaching the page, plus parts of the display and input path that differ between devices. That is why a score can change when you use another screen, browser, mouse, touch screen, keyboard, or operating-system setup.</p>
+        <p>The five result cards give you a transparent record of the session instead of hiding every attempt behind one final number. Compare the range of your own valid rounds, then use the best, median, and average together. The median can be helpful when one round was unusually quick or slow, while the average shows the overall value for the same five responses. None of these measurements diagnose a health condition or prove how a person will perform in another task.</p>
+        <p>For a useful personal baseline, repeat the full test at different times while keeping the device and input method consistent. If the result varies, first check practical conditions: notifications, background work, a touch screen versus a mouse, an external display, and whether you were watching for the colour change. The goal is a clear comparison of repeatable browser sessions, not a universal label.</p>
+      </div>
+      <div class="shell link-list">
+        <a href="/reaction-time-test/"><strong>Five-round reaction test</strong><span>Review the round flow and false-start rule.</span></a>
+        <a href="/average-reaction-time/"><strong>Understanding reaction scores</strong><span>Learn why browser results are not a universal average.</span></a>
+        <a href="/how-it-works/"><strong>How the timing works</strong><span>See what the browser timer records and why latency matters.</span></a>
+      </div>
+    </section>
+  )}
+
+  <FaqList items={content.faqs} eyebrow={content.faqEyebrow} heading={content.faqHeading} />
+</BaseLayout>

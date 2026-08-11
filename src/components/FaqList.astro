@@ -1,0 +1,22 @@
+---
+interface Props {
+  items: { question: string; answer: string }[];
+  eyebrow?: string;
+  heading?: string;
+}
+
+const { items, eyebrow = 'Common questions', heading = 'Reaction time test FAQ' } = Astro.props;
+---
+
+<section class="faq-section" aria-labelledby="faq-heading">
+  <p class="eyebrow">{eyebrow}</p>
+  <h2 id="faq-heading">{heading}</h2>
+  <div class="faq-list">
+    {items.map((item) => (
+      <details>
+        <summary>{item.question}</summary>
+        <p>{item.answer}</p>
+      </details>
+    ))}
+  </div>
+</section>
