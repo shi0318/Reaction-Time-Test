@@ -46,9 +46,9 @@ const organization = {
   logo: {
     '@type': 'ImageObject',
     '@id': `${SITE.url}/#logo`,
-    url: `${SITE.url}/logo.svg`,
-    width: 128,
-    height: 128,
+    url: `${SITE.url}/logo.png`,
+    width: 512,
+    height: 512,
   },
   email: SITE.email,
 };
@@ -125,14 +125,22 @@ const schema = { '@context': 'https://schema.org', '@graph': graph };
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
     <meta property="og:url" content={canonical} />
-    <meta property="og:image" content={`${SITE.url}/logo.svg`} />
+    <meta property="og:image" content={`${SITE.url}/images/og-reaction-time-test.png`} />
+    <meta property="og:image:type" content="image/png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="Reaction Time Test — free reaction speed test online" />
     <meta property="og:locale" content={ogLocale} />
-    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content={title} />
     <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={`${SITE.url}/images/og-reaction-time-test.png`} />
+    <meta name="twitter:image:alt" content="Reaction Time Test — free reaction speed test online" />
     <meta name="theme-color" content="#111827" />
     <meta name="application-name" content={SITE.name} />
+    <link rel="icon" href="/favicon-96.png" type="image/png" sizes="96x96" />
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="apple-touch-icon" href="/favicon-96.png" sizes="96x96" />
     <link rel="sitemap" type="application/xml" href="/sitemap-index.xml" />
     <script type="application/ld+json" set:html={JSON.stringify(schema)} is:inline />
   </head>
