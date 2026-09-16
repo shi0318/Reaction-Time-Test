@@ -111,6 +111,15 @@ const schema = { '@context': 'https://schema.org', '@graph': graph };
 <!doctype html>
 <html lang={localeContent.htmlLang}>
   <head>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-8K7PS40Q88"></script>
+    <script is:inline>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'G-8K7PS40Q88');
+    </script>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>{title}</title>
