@@ -106,14 +106,14 @@ function initVariant() {
     if (scores.length >= 5) return;
     window.clearTimeout(waitTimer);
     target = keys[Math.floor(Math.random() * keys.length)];
-    shown = kind === 'choice' && Math.random() < 0.45 ? keys.find((key) => key !== target) : target;
+    shown = Math.random() < 0.45 ? keys.find((key) => key !== target) : target;
     prompt.textContent = ui.target(names[target]);
     help.textContent = ui.wait;
     status.textContent = ui.armed(scores.length + 1, names[target]);
     setPanel('waiting', '#111827');
     waitTimer = window.setTimeout(() => {
       startedAt = performance.now();
-      prompt.textContent = kind === 'choice' && shown !== target ? ui.decoy : ui.click(names[shown]);
+      prompt.textContent = shown !== target ? ui.decoy : ui.click(names[shown]);
       help.textContent = shown === target ? ui.matchHelp : ui.decoyHelp;
       setPanel('ready', COLORS[shown].value);
     }, 900 + Math.floor(Math.random() * 1600));
