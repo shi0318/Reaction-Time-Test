@@ -7,13 +7,20 @@ interface Props { locale: Locale }
 const { locale } = Astro.props;
 const copy = HUB[locale];
 const canonicalPath = locale === 'en' ? '/reaction-tests/' : `/${locale}/reaction-tests/`;
+const tools = copy.items.filter((item) => item.group === 'tools');
+const guides = copy.items.filter((item) => item.group === 'guides');
 ---
 
 <BaseLayout title={copy.title} description={copy.description} canonicalPath={canonicalPath} locale={locale}>
   <section class="article-hero"><div class="shell"><p class="eyebrow">{copy.kicker}</p><h1>{copy.h1}</h1><p class="lede">{copy.lede}</p></div></section>
   <article class="article-page article-copy">
-    <nav class="link-list link-list--standalone" aria-label={copy.h1}>
-      {copy.items.map((item) => <a href={item.href}><strong>{item.label}</strong><span>{item.note}</span></a>)}
+    <h2>{copy.toolsHeading}</h2>
+    <nav class="link-list link-list--standalone" aria-label={copy.toolsHeading}>
+      {tools.map((item) => <a href={item.href}><strong>{item.label}</strong><span>{item.note}</span></a>)}
+    </nav>
+    <h2>{copy.guidesHeading}</h2>
+    <nav class="link-list link-list--standalone" aria-label={copy.guidesHeading}>
+      {guides.map((item) => <a href={item.href}><strong>{item.label}</strong><span>{item.note}</span></a>)}
     </nav>
   </article>
 </BaseLayout>

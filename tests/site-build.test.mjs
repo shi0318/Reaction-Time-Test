@@ -125,6 +125,7 @@ test('the supporting SEO pages and crawler files are generated', () => {
     assert.ok(html.includes(localizedPhrase), 'Expected the translated reaction speed test phrase in the homepage content.');
     assert.ok(html.includes(localizedFaq), 'Expected a localized reaction speed test FAQ.');
     assert.match(html, new RegExp(`href="/${route}/reaction-tests/"`));
+    assert.match(html, new RegExp(`>${route === 'zh' ? '工具' : route === 'ko' ? '도구' : route === 'hi' ? 'टूल' : 'Outils'}<`));
     assert.match(html, new RegExp(`href="/${route}/choice-reaction-time-test/"`));
     assert.match(html, new RegExp(`href="/${route}/color-reaction-test/"`));
     assert.doesNotMatch(html, /<h1[^>]*>Reaction Time Test: Free Reaction Speed Test Online<\/h1>/);

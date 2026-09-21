@@ -18,6 +18,7 @@ const content = getHomeContent(locale);
     <nav aria-label="Primary navigation">
       <ul class="nav-list">
         <li><a href={`${content.path}#play`}>{content.nav.play}</a></li>
+        <li><a href={locale === 'en' ? '/reaction-tests/' : `/${locale}/reaction-tests/`}>{content.nav.tools}</a></li>
         <li><a href={`${content.path}#how-it-works`}>{content.nav.method}</a></li>
         <li><a href={`${content.path}#faq`}>{content.nav.faq}</a></li>
         <li class="language-nav-item">

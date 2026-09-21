@@ -20,60 +20,65 @@ export interface VariantCopy {
 
 const prefix = (locale: Locale) => (locale === 'en' ? '' : `/${locale}`);
 
-export const HUB: Record<Locale, { title: string; description: string; kicker: string; h1: string; lede: string; items: { href: string; label: string; note: string }[] }> = {
+export const HUB: Record<Locale, { title: string; description: string; kicker: string; h1: string; lede: string; toolsHeading: string; guidesHeading: string; items: { href: string; label: string; note: string; group: 'tools' | 'guides' }[] }> = {
   en: {
     title: 'Reaction Tests – Visual, Choice and Color',
     description: 'Browse the reaction time tests on this site: the homepage visual test, a choice reaction time test, and a color reaction test.',
     kicker: 'Test set', h1: 'Reaction Tests', lede: 'The live visual test stays on the homepage. These extra tests are narrower variants, not a second copy of the main tool.',
+    toolsHeading: 'Tools', guidesHeading: 'Guides',
     items: [
-      { href: '/', label: 'Visual reaction time test', note: 'The five-round green-signal test on the homepage.' },
-      { href: '/choice-reaction-time-test/', label: 'Choice reaction time test', note: 'Wait for the matching color, then click. Wrong colors are ignored.' },
-      { href: '/color-reaction-test/', label: 'Color reaction test', note: 'Click only when the panel turns the named color.' },
-      { href: '/average-reaction-time/', label: 'Average reaction time', note: 'How to read best, median and average.' },
+      { href: '/', label: 'Visual reaction time test', note: 'The five-round green-signal test on the homepage.', group: 'tools' },
+      { href: '/choice-reaction-time-test/', label: 'Choice reaction time test', note: 'Wait for the matching color, then click. Wrong colors are ignored.', group: 'tools' },
+      { href: '/color-reaction-test/', label: 'Color reaction test', note: 'Click only when the panel turns the named color.', group: 'tools' },
+      { href: '/average-reaction-time/', label: 'Average reaction time', note: 'How to read best, median and average.', group: 'guides' },
     ],
   },
   zh: {
     title: '反应测试 – 视觉、选择与颜色',
     description: '浏览本站反应时间测试：首页视觉测试、选择反应时间测试和颜色反应测试。',
     kicker: '测试集', h1: '反应测试', lede: '五轮视觉测试仍在各语言首页。这里的额外测试是更窄的变体，不是第二份主工具。',
+    toolsHeading: '工具', guidesHeading: '说明',
     items: [
-      { href: '/zh/', label: '视觉反应时间测试', note: '中文首页的五轮绿色信号测试。' },
-      { href: '/zh/choice-reaction-time-test/', label: '选择反应时间测试', note: '只在目标颜色出现时点击，点错颜色不计分。' },
-      { href: '/zh/color-reaction-test/', label: '颜色反应测试', note: '面板变成指定颜色时再点击。' },
-      { href: '/average-reaction-time/', label: '平均反应时间', note: '如何阅读最佳值、中位数和平均值。' },
+      { href: '/zh/', label: '视觉反应时间测试', note: '中文首页的五轮绿色信号测试。', group: 'tools' },
+      { href: '/zh/choice-reaction-time-test/', label: '选择反应时间测试', note: '只在目标颜色出现时点击，点错颜色不计分。', group: 'tools' },
+      { href: '/zh/color-reaction-test/', label: '颜色反应测试', note: '面板变成指定颜色时再点击。', group: 'tools' },
+      { href: '/average-reaction-time/', label: '平均反应时间', note: '如何阅读最佳值、中位数和平均值。', group: 'guides' },
     ],
   },
   ko: {
     title: '반응 테스트 – 시각, 선택, 색상',
     description: '이 사이트의 반응 시간 테스트: 홈 시각 테스트, 선택 반응 시간 테스트, 색상 반응 테스트.',
     kicker: '테스트 모음', h1: '반응 테스트', lede: '5라운드 시각 테스트는 각 언어 홈에 그대로 둡니다. 여기 도구는 더 좁은 변형입니다.',
+    toolsHeading: '도구', guidesHeading: '안내',
     items: [
-      { href: '/ko/', label: '시각 반응 시간 테스트', note: '한국어 홈의 5라운드 초록 신호 테스트.' },
-      { href: '/ko/choice-reaction-time-test/', label: '선택 반응 시간 테스트', note: '목표 색만 클릭합니다. 다른 색은 기록되지 않습니다.' },
-      { href: '/ko/color-reaction-test/', label: '색상 반응 테스트', note: '지정한 색이 나타나면 클릭하세요.' },
-      { href: '/average-reaction-time/', label: '평균 반응 시간', note: '최고, 중앙값, 평균을 읽는 방법.' },
+      { href: '/ko/', label: '시각 반응 시간 테스트', note: '한국어 홈의 5라운드 초록 신호 테스트.', group: 'tools' },
+      { href: '/ko/choice-reaction-time-test/', label: '선택 반응 시간 테스트', note: '목표 색만 클릭합니다. 다른 색은 기록되지 않습니다.', group: 'tools' },
+      { href: '/ko/color-reaction-test/', label: '색상 반응 테스트', note: '지정한 색이 나타나면 클릭하세요.', group: 'tools' },
+      { href: '/average-reaction-time/', label: '평균 반응 시간', note: '최고, 중앙값, 평균을 읽는 방법.', group: 'guides' },
     ],
   },
   hi: {
     title: 'प्रतिक्रिया परीक्षण – दृश्य, चयन और रंग',
     description: 'इस साइट के प्रतिक्रिया समय परीक्षण: होम दृश्य परीक्षण, चयन प्रतिक्रिया परीक्षण और रंग प्रतिक्रिया परीक्षण।',
     kicker: 'परीक्षण समूह', h1: 'प्रतिक्रिया परीक्षण', lede: 'पाँच राउंड वाला दृश्य परीक्षण भाषा होमपेज पर ही रहता है। ये अतिरिक्त परीक्षण संकीर्ण रूप हैं।',
+    toolsHeading: 'टूल', guidesHeading: 'गाइड',
     items: [
-      { href: '/hi/', label: 'दृश्य प्रतिक्रिया समय परीक्षण', note: 'हिन्दी होम पर पाँच राउंड का हरा संकेत परीक्षण।' },
-      { href: '/hi/choice-reaction-time-test/', label: 'चयन प्रतिक्रिया समय परीक्षण', note: 'केवल लक्ष्य रंग पर क्लिक करें। गलत रंग नहीं गिने जाते।' },
-      { href: '/hi/color-reaction-test/', label: 'रंग प्रतिक्रिया परीक्षण', note: 'पैनल बताए गए रंग पर आए तब क्लिक करें।' },
-      { href: '/average-reaction-time/', label: 'औसत प्रतिक्रिया समय', note: 'सर्वश्रेष्ठ, माध्यिका और औसत कैसे पढ़ें।' },
+      { href: '/hi/', label: 'दृश्य प्रतिक्रिया समय परीक्षण', note: 'हिन्दी होम पर पाँच राउंड का हरा संकेत परीक्षण।', group: 'tools' },
+      { href: '/hi/choice-reaction-time-test/', label: 'चयन प्रतिक्रिया समय परीक्षण', note: 'केवल लक्ष्य रंग पर क्लिक करें। गलत रंग नहीं गिने जाते।', group: 'tools' },
+      { href: '/hi/color-reaction-test/', label: 'रंग प्रतिक्रिया परीक्षण', note: 'पैनल बताए गए रंग पर आए तब क्लिक करें।', group: 'tools' },
+      { href: '/average-reaction-time/', label: 'औसत प्रतिक्रिया समय', note: 'सर्वश्रेष्ठ, माध्यिका और औसत कैसे पढ़ें।', group: 'guides' },
     ],
   },
   fr: {
     title: 'Tests de réaction – visuel, choix et couleur',
     description: 'Parcourir les tests de temps de réaction : test visuel d’accueil, test de choix et test de couleur.',
     kicker: 'Série de tests', h1: 'Tests de réaction', lede: 'Le test visuel en cinq tours reste sur chaque page d’accueil. Les tests ici sont des variantes plus étroites.',
+    toolsHeading: 'Outils', guidesHeading: 'Guides',
     items: [
-      { href: '/fr/', label: 'Test visuel de temps de réaction', note: 'Le test vert en cinq tours de la page d’accueil française.' },
-      { href: '/fr/choice-reaction-time-test/', label: 'Test de temps de réaction de choix', note: 'Cliquez seulement sur la couleur cible. Les autres ne comptent pas.' },
-      { href: '/fr/color-reaction-test/', label: 'Test de réaction aux couleurs', note: 'Cliquez lorsque le panneau devient la couleur indiquée.' },
-      { href: '/average-reaction-time/', label: 'Temps de réaction moyen', note: 'Lire le meilleur score, la médiane et la moyenne.' },
+      { href: '/fr/', label: 'Test visuel de temps de réaction', note: 'Le test vert en cinq tours de la page d’accueil française.', group: 'tools' },
+      { href: '/fr/choice-reaction-time-test/', label: 'Test de temps de réaction de choix', note: 'Cliquez seulement sur la couleur cible. Les autres ne comptent pas.', group: 'tools' },
+      { href: '/fr/color-reaction-test/', label: 'Test de réaction aux couleurs', note: 'Cliquez lorsque le panneau devient la couleur indiquée.', group: 'tools' },
+      { href: '/average-reaction-time/', label: 'Temps de réaction moyen', note: 'Lire le meilleur score, la médiane et la moyenne.', group: 'guides' },
     ],
   },
 };
