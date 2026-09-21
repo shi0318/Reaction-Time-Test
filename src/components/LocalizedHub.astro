@@ -1,0 +1,19 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { HUB } from '../data/tool-copy';
+import type { Locale } from '../data/locales';
+
+interface Props { locale: Locale }
+const { locale } = Astro.props;
+const copy = HUB[locale];
+const canonicalPath = locale === 'en' ? '/reaction-tests/' : `/${locale}/reaction-tests/`;
+---
+
+<BaseLayout title={copy.title} description={copy.description} canonicalPath={canonicalPath} locale={locale}>
+  <section class="article-hero"><div class="shell"><p class="eyebrow">{copy.kicker}</p><h1>{copy.h1}</h1><p class="lede">{copy.lede}</p></div></section>
+  <article class="article-page article-copy">
+    <nav class="link-list link-list--standalone" aria-label={copy.h1}>
+      {copy.items.map((item) => <a href={item.href}><strong>{item.label}</strong><span>{item.note}</span></a>)}
+    </nav>
+  </article>
+</BaseLayout>

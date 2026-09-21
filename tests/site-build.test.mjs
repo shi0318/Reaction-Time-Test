@@ -91,6 +91,18 @@ test('the supporting SEO pages and crawler files are generated', () => {
     'reaction-tests',
     'choice-reaction-time-test',
     'color-reaction-test',
+    'zh/reaction-tests',
+    'zh/choice-reaction-time-test',
+    'zh/color-reaction-test',
+    'ko/reaction-tests',
+    'ko/choice-reaction-time-test',
+    'ko/color-reaction-test',
+    'hi/reaction-tests',
+    'hi/choice-reaction-time-test',
+    'hi/color-reaction-test',
+    'fr/reaction-tests',
+    'fr/choice-reaction-time-test',
+    'fr/color-reaction-test',
     'how-it-works',
     'about',
     'contact',
@@ -112,6 +124,9 @@ test('the supporting SEO pages and crawler files are generated', () => {
     assert.ok(html.includes('<h1>' + localizedH1 + '</h1>'), 'Expected a localized homepage H1.');
     assert.ok(html.includes(localizedPhrase), 'Expected the translated reaction speed test phrase in the homepage content.');
     assert.ok(html.includes(localizedFaq), 'Expected a localized reaction speed test FAQ.');
+    assert.match(html, new RegExp(`href="/${route}/reaction-tests/"`));
+    assert.match(html, new RegExp(`href="/${route}/choice-reaction-time-test/"`));
+    assert.match(html, new RegExp(`href="/${route}/color-reaction-test/"`));
     assert.doesNotMatch(html, /<h1[^>]*>Reaction Time Test: Free Reaction Speed Test Online<\/h1>/);
     assert.match(html, new RegExp(`<html lang="${language}">`));
     assert.match(html, new RegExp(`<link rel="canonical" href="https://reactiontimetest\\.fun/${route}/">`));

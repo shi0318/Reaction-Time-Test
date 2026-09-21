@@ -1,21 +1,4 @@
 ---
-import BaseLayout from '../layouts/BaseLayout.astro';
-
-const tests = [
-  { href: '/', label: 'Visual reaction time test', note: 'The five-round green-signal test on the homepage.' },
-  { href: '/choice-reaction-time-test/', label: 'Choice reaction time test', note: 'Wait for the matching color, then click. Wrong colors are ignored.' },
-  { href: '/color-reaction-test/', label: 'Color reaction test', note: 'Click only when the panel turns the named color.' },
-  { href: '/average-reaction-time/', label: 'Average reaction time', note: 'How to read best, median and average.' },
-  { href: '/reaction-time-by-age/', label: 'Reaction time by age', note: 'Why age charts are not a diagnosis.' },
-  { href: '/f1-driver-reaction-time/', label: 'F1 driver reaction time', note: 'Race-start times versus a browser click.' },
-];
+import LocalizedHub from '../components/LocalizedHub.astro';
 ---
-
-<BaseLayout title="Reaction Tests – Visual, Choice and Color" description="Browse the reaction time tests on this site: the homepage visual test, a choice reaction time test, and a color reaction test. Method pages stay separate from the live tools.">
-  <section class="article-hero"><div class="shell"><p class="eyebrow">Test set</p><h1>Reaction Tests</h1><p class="lede">The live visual test stays on the homepage. These extra tests are narrower variants, not a second copy of the main tool.</p></div></section>
-  <article class="article-page article-copy">
-    <nav class="link-list link-list--standalone" aria-label="Reaction tests">
-      {tests.map((item) => <a href={item.href}><strong>{item.label}</strong><span>{item.note}</span></a>)}
-    </nav>
-  </article>
-</BaseLayout>
+<LocalizedHub locale="en" />

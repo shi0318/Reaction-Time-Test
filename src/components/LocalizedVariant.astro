@@ -1,0 +1,50 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { CHOICE, COLOR } from '../data/tool-copy';
+import type { Locale } from '../data/locales';
+
+interface Props { locale: Locale; variant: 'choice' | 'color' }
+const { locale, variant } = Astro.props;
+const copy = variant === 'choice' ? CHOICE[locale] : COLOR[locale];
+const slug = variant === 'choice' ? '/choice-reaction-time-test/' : '/color-reaction-test/';
+const canonicalPath = locale === 'en' ? slug : `/${locale}${slug}`;
+---
+
+<BaseLayout title={copy.title} description={copy.description} canonicalPath={canonicalPath} faqs={copy.faqs} locale={locale}>
+  <section class="article-hero"><div class="shell"><p class="eyebrow">{copy.kicker}</p><h1>{copy.h1}</h1><p class="lede">{copy.lede}</p></div></section>
+  <div class="game-wrap">
+    <section class="game-section" id="play" data-reaction-variant={variant} data-locale={locale} aria-labelledby="variant-heading">
+      <div class="game-heading-row">
+        <div>
+          <p class="eyebrow">{copy.kicker}</p>
+          <h2 id="variant-heading">{copy.heading}</h2>
+        </div>
+        <p class="round-count" id="variant-count">{copy.count(0)}</p>
+      </div>
+      <button class="reaction-panel" id="variant-panel" type="button" data-state="idle">
+        <span class="signal-dot" aria-hidden="true"></span>
+        <span class="game-prompt" id="variant-prompt">{copy.begin}</span>
+        <span class="game-help" id="variant-help">{copy.beginHelp}</span>
+      </button>
+      <p class="tool-status" id="variant-status">{copy.ready}</p>
+      <dl class="result-metrics" id="variant-summary" hidden>
+        <div><dt>Best</dt><dd id="variant-best">—</dd></div>
+        <div><dt>Median</dt><dd id="variant-median">—</dd></div>
+        <div><dt>Average</dt><dd id="variant-average">—</dd></div>
+      </dl>
+    </section>
+  </div>
+  <article class="article-page article-copy">
+    <h2>{copy.aboutTitle}</h2>
+    {copy.aboutBody.map((paragraph) => <p>{paragraph}</p>)}
+    <p class="article-callout">{copy.callout}</p>
+  </article>
+  <section class="faq-section" id="faq">
+    <div class="shell">
+      <p class="eyebrow">FAQ</p>
+      <h2>{copy.faqHeading}</h2>
+      <div class="faq-grid">{copy.faqs.map((item, index) => <details open={index === 0}><summary>{item.question}</summary><p>{item.answer}</p></details>)}</div>
+    </div>
+  </section>
+  <script>import '../scripts/reaction-variants.js';</script>
+</BaseLayout>
