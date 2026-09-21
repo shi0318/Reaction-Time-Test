@@ -40,8 +40,8 @@ test('homepage is fully rendered with reaction time test and its supported searc
   assert.match(bodyText, /A browser test cannot prove a permanent physiological improvement/i);
   assert.doesNotMatch(html, /What a browser reaction score can and cannot tell you/);
   assert.match(html, /<nav class="shell link-list link-list--standalone" aria-label="Related reaction time guides">/);
-  assert.match(html, /href="\/reaction-time-test\/"[^>]*><strong>Five-round reaction test<\/strong>/);
-  assert.match(html, /href="\/average-reaction-time\/"[^>]*><strong>Understanding reaction scores<\/strong>/);
+  assert.match(html, /href="\/reaction-time-test\/"[^>]*><strong>Five-round method<\/strong>/);
+  assert.match(html, /href="\/average-reaction-time\/"[^>]*><strong>Average reaction time<\/strong>/);
   assert.match(html, /href="\/how-it-works\/"[^>]*><strong>How the timing works<\/strong>/);
   assert.ok(bodyText.split(' ').length >= 700, 'Homepage needs substantive server-rendered text without redundant copy.');
 });
@@ -85,6 +85,8 @@ test('the supporting SEO pages and crawler files are generated', () => {
   for (const route of [
     'reaction-time-test',
     'average-reaction-time',
+    'reaction-time-by-age',
+    'f1-driver-reaction-time',
     'how-it-works',
     'about',
     'contact',
@@ -132,9 +134,22 @@ test('the focused reflex page is explanatory content and the public brand is uni
   const reflexPage = readBuilt('reaction-time-test');
   assert.match(reflexPage, /<title>Five-Round Reaction Reflex Test Explained<\/title>/);
   assert.match(reflexPage, /<h1>Five-Round Reaction Reflex Test Explained<\/h1>/);
+  assert.match(reflexPage, /Take the reaction time test on the homepage/);
   assert.match(reflexPage, /"@type":"Article"/);
   assert.doesNotMatch(reflexPage, /class="reaction-panel"/);
   assert.doesNotMatch(reflexPage, /Reaction Time Test: Five-Round Reflex Test/);
+
+  const averagePage = readBuilt('average-reaction-time');
+  assert.match(averagePage, /<h1>Average Reaction Time<\/h1>/);
+  assert.match(averagePage, /Typical average reaction time on a simple visual click/);
+
+  const agePage = readBuilt('reaction-time-by-age');
+  assert.match(agePage, /<h1>Reaction Time by Age<\/h1>/);
+  assert.match(agePage, /href="\/"/);
+
+  const f1Page = readBuilt('f1-driver-reaction-time');
+  assert.match(f1Page, /<h1>F1 Driver Reaction Time<\/h1>/);
+  assert.doesNotMatch(f1Page, /class="reaction-panel"/);
 
   for (const route of ['/', 'zh', 'ko', 'hi', 'fr', 'reaction-time-test', 'how-it-works', 'average-reaction-time', 'about', 'contact', 'privacy-policy', 'sitemap']) {
     const html = readBuilt(route);

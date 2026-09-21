@@ -3,9 +3,12 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 import SourceList from '../components/SourceList.astro';
 ---
 
-<BaseLayout title="Average Reaction Time: What a Browser Test Can Show" description="Understand average reaction time results without misleading universal rankings. Learn what best, median, average, latency, device setup, and repeatable testing mean.">
-  <section class="article-hero"><div class="shell"><p class="eyebrow">Score guide</p><h1>Average Reaction Time: Read the Number Carefully</h1><p class="lede">A browser reaction score is a session measurement, not a universal label for a person.</p></div></section>
+<BaseLayout title="Average Reaction Time: Typical Browser Ranges and How to Read Them" description="See what an average reaction time can mean on a five-round visual test. Compare best, median, and average scores without treating one number as a universal ranking.">
+  <section class="article-hero"><div class="shell"><p class="eyebrow">Score guide</p><h1>Average Reaction Time</h1><p class="lede">A browser average reaction time is the mean of five valid visual rounds on this site, not a medical ranking or a single number that fits every person.</p></div></section>
   <article class="article-page article-copy">
+    <h2>Typical average reaction time on a simple visual click</h2>
+    <p>On a simple “wait for green, then click” task, many healthy adults land somewhere near 200–300 ms in lab settings, while browser tests often read slower because of display and input latency. This site’s live score bands treat about 300–350 ms as a common browser-test middle. That is an informal reference for the same five-round visual test, not a clinical cutoff.</p>
+    <p>Age, sleep, caffeine, which hand you use, and whether the task is a simple reaction or a choice reaction all move the number. A Formula 1 start-light time and a phone tap are not the same measurement as this page.</p>
     <h2>There is no one browser average that fits every test</h2>
     <p>People often search for an average reaction time after taking a quick test. The useful first question is “average of what?” A response task can ask for one action after one visible signal, require a choice between several signals, ask the user to move a pointer to a target, or require repeated tapping. Those are different tasks, so their recorded times should not be mixed as though they measure the same event.</p>
     <p>Even within a simple visual click test, the reported number is influenced by the device path. The screen must display a change, the user notices it, an input device reports an action, and the browser processes that event. Public browser-test references describe display and input latency as part of that context. This site therefore does not present a universal “normal” score or classify a visitor from one session.</p>
@@ -25,7 +28,7 @@ import SourceList from '../components/SourceList.astro';
       <li>Note interruptions, fatigue, and changes to your setup before inferring a trend.</li>
     </ol>
     <p>These habits do not turn a web game into a laboratory instrument. They simply make personal comparisons less noisy. Do not use an online reaction test to diagnose a health condition or decide whether you are safe to drive, work, or compete.</p>
-    <p class="article-callout">Want to generate your own five-round session? <a href="/">Run the reaction time test on the homepage.</a></p>
+    <p class="article-callout">Generate a five-round average on the <a href="/">reaction time test homepage</a>. For method rules see the <a href="/reaction-time-test/">five-round explanation</a>. Age patterns and race-start examples live on the <a href="/reaction-time-by-age/">reaction time by age</a> and <a href="/f1-driver-reaction-time/">F1 driver reaction time</a> pages.</p>
   </article>
   <SourceList />
 </BaseLayout>

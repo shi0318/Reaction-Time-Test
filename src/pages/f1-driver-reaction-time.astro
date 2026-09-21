@@ -1,0 +1,24 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import SourceList from '../components/SourceList.astro';
+---
+
+<BaseLayout title="F1 Driver Reaction Time – Race Starts vs a Browser Test" description="See how F1 driver reaction time is discussed at race starts, why those milliseconds are not the same as a browser visual click, and how to use this site’s five-round test instead.">
+  <section class="article-hero"><div class="shell"><p class="eyebrow">Scene guide</p><h1>F1 Driver Reaction Time</h1><p class="lede">Race-start lights, launch control, and a browser green-panel click are related ideas with different clocks.</p></div></section>
+  <article class="article-page article-copy">
+    <h2>What an F1 start actually times</h2>
+    <p>F1 driver reaction time usually refers to the gap between the start-light sequence going out and the car moving. Broadcast graphics sometimes show times around two tenths of a second. Those figures include the driver’s response, the clutch or launch procedure, and the car’s telemetry definition of “moved.” They are not a five-round browser click.</p>
+    <p>A jump start is a false start under race rules. This site’s tool also excludes clicks before the green signal, but the penalty is a retry, not a grid drop. Do not treat a homepage millisecond as a race-start equivalent.</p>
+    <h2>Why a browser test reads differently</h2>
+    <p>The homepage reaction time test measures the interval between a panel turning green and a mouse, tap, or key event. Monitor lag, USB polling, and JavaScript sit in that interval. An F1 driver is looking at a light gantry and moving a car, not clicking a web page.</p>
+    <p>If you want a personal baseline, run several complete sessions on the same computer and read the median beside the average. The <a href="/average-reaction-time/">average reaction time</a> page explains those three numbers. Age-group claims belong on <a href="/reaction-time-by-age/">reaction time by age</a>, not on a race-start graphic.</p>
+    <h2>Use the comparison carefully</h2>
+    <ul>
+      <li>F1 start times are event telemetry, not a medical test.</li>
+      <li>This site reports a browser visual click, not a launch.</li>
+      <li>Anticipation is a false start in both settings; only the consequences differ.</li>
+    </ul>
+    <p class="article-callout">Generate your own five-round session on the <a href="/">reaction time test homepage</a>. The method article is the <a href="/reaction-time-test/">five-round explanation</a>.</p>
+  </article>
+  <SourceList />
+</BaseLayout>
