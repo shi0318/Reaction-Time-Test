@@ -1,5 +1,5 @@
 ---
-import { SITE, SOURCES } from '../data/site';
+import { SITE, SISTER_SITES, SOURCES } from '../data/site';
 import { LANGUAGE_ENTRIES, getHomeContent, type Locale } from '../data/locales';
 
 interface Props {
@@ -30,6 +30,9 @@ const content = getHomeContent(locale);
     <section>
       <h2>{content.footer.learn}</h2>
       <ul>
+        <li><a href="/reaction-tests/">All reaction tests</a></li>
+        <li><a href="/choice-reaction-time-test/">Choice reaction time test</a></li>
+        <li><a href="/color-reaction-test/">Color reaction test</a></li>
         <li><a href="/average-reaction-time/">Average reaction time</a></li>
         <li><a href="/reaction-time-test/">Five-round method</a></li>
         <li><a href="/reaction-time-by-age/">Reaction time by age</a></li>
@@ -45,6 +48,12 @@ const content = getHomeContent(locale);
         <li><a href="/privacy-policy/">Privacy policy</a></li>
         <li><a href="/sitemap/">HTML sitemap</a></li>
         <li><a href="/sitemap-index.xml">XML sitemap</a></li>
+      </ul>
+    </section>
+    <section>
+      <h2>Other sites</h2>
+      <ul>
+        {SISTER_SITES.map((site) => <li><a href={site.href} rel="noopener">{site.name}</a></li>)}
       </ul>
     </section>
     <section>

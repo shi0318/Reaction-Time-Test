@@ -23,3 +23,8 @@ export const NAVIGATION = [
   { href: '/how-it-works/', label: 'How it works' },
   { href: '/#faq', label: 'FAQ' },
 ];
+
+export const SISTER_SITES = [
+  { href: 'https://click-speed-test.net/', name: 'CPS Test', note: 'Measure click speed in your browser.' },
+  { href: 'https://checkgamepad.com/', name: 'Gamepad Tester', note: 'Controller, keyboard and mouse diagnostics.' },
+];

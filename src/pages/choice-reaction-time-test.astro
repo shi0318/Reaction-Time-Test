@@ -1,0 +1,49 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+
+const faq = [
+  { question: 'What is a choice reaction time test?', answer: 'You wait for one of two possible signals and respond only to the matching one. A click on the wrong color is ignored, unlike the homepage test where any valid input after green counts.' },
+  { question: 'Is this the same as the homepage reaction time test?', answer: 'No. The homepage is a simple visual reaction time test. This page adds a choice. Do not mix the two scores.' },
+  { question: 'Why is the search volume small?', answer: 'Most people want the simple green-panel test. This page exists as an extra entrance, not as a replacement for the homepage.' },
+];
+---
+
+<BaseLayout title="Choice Reaction Time Test – Click Only the Matching Color" description="Free choice reaction time test. Wait for the matching color, then click. Wrong colors do not count. Run five valid rounds in your browser." canonicalPath="/choice-reaction-time-test/" faqs={faq}>
+  <section class="article-hero"><div class="shell"><p class="eyebrow">Choice test</p><h1>Choice Reaction Time Test</h1><p class="lede">One color is the target. Click only when the panel matches it. Early clicks and wrong colors are ignored.</p></div></section>
+  <div class="game-wrap">
+    <section class="game-section" id="play" data-reaction-variant="choice" aria-labelledby="choice-heading">
+      <div class="game-heading-row">
+        <div>
+          <p class="eyebrow">Five valid rounds</p>
+          <h2 id="choice-heading">Click only the target color</h2>
+        </div>
+        <p class="round-count" id="variant-count">0 of 5 recorded</p>
+      </div>
+      <button class="reaction-panel" id="variant-panel" type="button" data-state="idle">
+        <span class="signal-dot" aria-hidden="true"></span>
+        <span class="game-prompt" id="variant-prompt">Click to begin</span>
+        <span class="game-help" id="variant-help">You will be asked to respond only to one color.</span>
+      </button>
+      <p class="tool-status" id="variant-status">Choice reaction time test ready.</p>
+      <dl class="result-metrics" id="variant-summary" hidden>
+        <div><dt>Best</dt><dd id="variant-best">—</dd></div>
+        <div><dt>Median</dt><dd id="variant-median">—</dd></div>
+        <div><dt>Average</dt><dd id="variant-average">—</dd></div>
+      </dl>
+    </section>
+  </div>
+  <article class="article-page article-copy">
+    <h2>How this choice reaction time test works</h2>
+    <p>Each round names a target color, then shows either that color or a decoy after a random delay. A click on the decoy does not record a time. Five valid matching clicks produce best, median and average values, the same summary shape as the homepage, on a harder task.</p>
+    <p>Keep this score on this page. The simple visual test stays at <a href="/">reaction time test</a>. Color-only wording without a decoy lives on the <a href="/color-reaction-test/">color reaction test</a>.</p>
+    <p class="article-callout">This is an extra entrance, not the main tool. Most visitors should start on the homepage.</p>
+  </article>
+  <section class="faq-section" id="faq">
+    <div class="shell">
+      <p class="eyebrow">FAQ</p>
+      <h2>Questions about this test</h2>
+      <div class="faq-grid">{faq.map((item, index) => <details open={index === 0}><summary>{item.question}</summary><p>{item.answer}</p></details>)}</div>
+    </div>
+  </section>
+  <script>import '../scripts/reaction-variants.js';</script>
+</BaseLayout>

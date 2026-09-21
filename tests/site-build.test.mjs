@@ -40,6 +40,7 @@ test('homepage is fully rendered with reaction time test and its supported searc
   assert.match(bodyText, /A browser test cannot prove a permanent physiological improvement/i);
   assert.doesNotMatch(html, /What a browser reaction score can and cannot tell you/);
   assert.match(html, /<nav class="shell link-list link-list--standalone" aria-label="Related reaction time guides">/);
+  assert.match(html, /href="\/reaction-tests\/"[^>]*><strong>All reaction tests<\/strong>/);
   assert.match(html, /href="\/reaction-time-test\/"[^>]*><strong>Five-round method<\/strong>/);
   assert.match(html, /href="\/average-reaction-time\/"[^>]*><strong>Average reaction time<\/strong>/);
   assert.match(html, /href="\/how-it-works\/"[^>]*><strong>How the timing works<\/strong>/);
@@ -87,6 +88,9 @@ test('the supporting SEO pages and crawler files are generated', () => {
     'average-reaction-time',
     'reaction-time-by-age',
     'f1-driver-reaction-time',
+    'reaction-tests',
+    'choice-reaction-time-test',
+    'color-reaction-test',
     'how-it-works',
     'about',
     'contact',
